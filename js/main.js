@@ -327,13 +327,20 @@
       placeholder.style.height = `${first.height}px`;
       card.parentNode.insertBefore(placeholder, card);
 
-      // FINAL: 中央・目標サイズ(画面幅の約6割、最大760px)へ。
+      // FINAL: 中央・目標サイズ(画面幅の約8.5割、最大1100px)へ。
       // 中央寄せ transform を当てた状態で last を測るのが正しいFLIP。
-      const targetW = Math.min(window.innerWidth * 0.6, 760);
+      const maxH = window.innerHeight * 0.92;
+      let targetW = Math.min(window.innerWidth * 0.85, 1100);
       card.style.width = `${targetW}px`;
       card.classList.add("is-zoomed", "no-anim");
       card.style.transform = "translate(-50%, -50%)";
-      const centered = card.getBoundingClientRect();
+      let centered = card.getBoundingClientRect();
+      // 縦が画面からはみ出すなら高さ基準で width を縮め直す
+      if (centered.height > maxH) {
+        targetW = Math.max(280, targetW * (maxH / centered.height));
+        card.style.width = `${targetW}px`;
+        centered = card.getBoundingClientRect();
+      }
 
       // INVERT: 元位置に見えるよう transform を当てる(no-anim で瞬間適用)
       card.style.transform = flipTo(first, centered);
