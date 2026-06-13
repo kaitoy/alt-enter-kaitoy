@@ -515,14 +515,31 @@ a:hover { color: var(--kinari); }
 .tl-card > p, .tl-card .tl-photo { font-size: 0.92rem; color: var(--kinari-dim); }
 .tl-card a { border-bottom: 1px dashed var(--kin); }
 
-.tl-photo { margin-top: 1.1rem; }
-.tl-photo img {
+.tl-photo {
+  margin-top: 1.1rem;
+  overflow: hidden;
   border-radius: 8px;
   border: 1px solid var(--line);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-  display: inline-block;
-  max-height: 230px;
-  width: auto;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  max-width: 420px;
+  transform-origin: center;
+  transition: scale 0.55s var(--ease-out), box-shadow 0.55s ease;
+}
+.tl-item:nth-child(odd) .tl-photo { margin-left: auto; transform-origin: left center; }
+.tl-item:nth-child(even) .tl-photo { transform-origin: right center; }
+.tl-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tl-photo:hover {
+  position: relative;
+  z-index: 50;
+  scale: 1.85;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.7), 0 0 40px rgba(201, 162, 39, 0.22);
 }
 
 /* ==========================================================================
@@ -1065,6 +1082,10 @@ a:hover { color: var(--kinari); }
   }
   .tl-item:nth-child(odd)::before,
   .tl-item:nth-child(even)::before { left: 3.5px; right: auto; }
+  .tl-item:nth-child(odd) .tl-photo { margin-left: 0; }
+  .tl-item:nth-child(odd) .tl-photo,
+  .tl-item:nth-child(even) .tl-photo { transform-origin: center; }
+  .tl-photo:hover { scale: 1.15; }
 
   .logo-grid { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
   .logo-grid img { width: 30px; height: 30px; }
