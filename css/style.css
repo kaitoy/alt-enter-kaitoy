@@ -594,8 +594,7 @@ a:hover { color: var(--kinari); }
   grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
   gap: 0.7rem;
 }
-.logo-grid li,
-.marquee-row li {
+.logo-grid li {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -608,10 +607,8 @@ a:hover { color: var(--kinari); }
   transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
 }
 .logo-grid li:hover { transform: translateY(-5px) scale(1.04); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45); }
-.logo-grid img,
-.marquee-row img { width: 38px; height: 38px; object-fit: contain; }
-.logo-grid span,
-.marquee-row span {
+.logo-grid img { width: 38px; height: 38px; object-fit: contain; }
+.logo-grid span {
   font-size: 0.6rem;
   line-height: 1.2;
   font-weight: 700;
@@ -620,31 +617,44 @@ a:hover { color: var(--kinari); }
   letter-spacing: 0.02em;
 }
 
-/* 第四章: 無限マーキー */
-.marquee {
-  margin-top: 1.8rem;
+/* 技術アイコンの立体クラウド (JSが is-cloud を付与した章のみ。
+   reduced-motion / JS無効時は上の平面グリッドのまま) */
+.logo-grid.is-cloud {
+  display: block;
+  position: relative;
+  margin-inline: auto;
+  min-height: clamp(440px, 64vh, 680px);
+  cursor: grab;
+  touch-action: none;
   overflow: hidden;
-  display: grid;
-  gap: 0.8rem;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  /* ドラッグ中に画像や文字が選択されないように */
+  -webkit-user-select: none;
+  user-select: none;
 }
-.marquee-row {
-  list-style: none;
-  display: flex;
-  width: max-content;
+.logo-grid.is-cloud img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
 }
-.marquee-row li { width: 108px; flex: none; margin-right: 0.8rem; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .marquee-row { animation: marquee 55s linear infinite; }
-  .marquee-rev { animation-direction: reverse; }
-  .marquee:hover .marquee-row { animation-play-state: paused; }
+.logo-grid.is-cloud.is-grabbing { cursor: grabbing; }
+.logo-grid.is-cloud li {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 92px;
+  margin: 0;
+  transition: none;
+  /* スクロール駆動の tile-in 出現はJSの座標配置と競合するため無効化
+     (CSSアニメはinline styleより優先されるため明示的に切る) */
+  animation: none;
+  will-change: transform, opacity;
 }
-@media (prefers-reduced-motion: reduce) {
-  .marquee { overflow-x: auto; }
+/* JSがtransformを毎フレーム上書きするため、ホバーのtransformは無効化。
+   強調は影と地色の明るさのみで行う */
+.logo-grid.is-cloud li:hover {
+  transform: none;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--kin);
 }
-@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ==========================================================================
    発 / COMMUNITY (stats)
@@ -1089,6 +1099,8 @@ a:hover { color: var(--kinari); }
 
   .logo-grid { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
   .logo-grid img { width: 30px; height: 30px; }
+  .logo-grid.is-cloud { min-height: clamp(340px, 82vw, 460px); }
+  .logo-grid.is-cloud li { width: 74px; }
 
   .section-kanji { font-size: 16rem; opacity: 0.7; }
 }
