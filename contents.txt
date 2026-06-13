@@ -96,5 +96,11 @@
 
 - 2016年: [ズンドコキヨシ with Pcap4J - ZUNDOKOプロトコルを実装してみた](https://www.kaitoy.xyz/2016/03/19/zundoko-kiyoshi-with-pcap4j/)
     - ![zundoko_pcap4j.png](images/zundoko_pcap4j.png)
+- 2017年: [ズンドコキヨシ with ServiceNow - ServiceNowアプリの作り方](https://qiita.com/kaitoy/items/515eb18eb42eed6e7512)
+    - ![zundoko_servicenow.png](images/zundoko_servicenow.png)
 - 2019年: [ズンドコキヨシ with Kubernetes Operator - KubebuilderでKubernetes Operatorを作ってみた](https://www.kaitoy.xyz/2019/03/08/k8s-zundoko-operator/)
     - ![zundoko_operator.png](images/zundoko_operator.png)
+- 2024年: [ズンドコキヨシ with LangGraph/LangChain - ズンドコキヨシするLLMマルチエージェントをつくった](https://www.kaitoy.xyz/2024/08/20/langgraph-zundoko-agent/)
+    - ![zundoko_langgraph.png](images/zundoko_langgraph.png)
+- 2025年: [ズンドコキヨシ with MCP - MCPの機能全部盛り (その1: 基本機能編)](https://www.kaitoy.xyz/2025/12/21/zundoko-mcp-server-1/)
+    - ![zundoko_mcp.png](images/zundoko_mcp.png)

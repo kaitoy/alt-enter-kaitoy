@@ -726,22 +726,50 @@ a:hover { color: var(--kinari); }
   gap: 1.4rem;
 }
 .work-card {
+  position: relative;
   display: block;
   background: var(--ink-3);
   border: 1px solid var(--line);
   border-radius: 12px;
   overflow: hidden;
   color: var(--kinari);
-  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease;
+  transform-origin: center;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s ease;
 }
+/* JS無効/タッチ端末向けのささやかなホバー(JS有効時は下のFLIP拡大が主役) */
 .work-card:hover {
-  transform: translateY(-6px) rotate(-0.4deg);
+  transform: translateY(-6px);
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5);
   color: var(--kinari);
 }
 .work-card figure { overflow: hidden; aspect-ratio: 16 / 8; background: var(--ink-deep); }
-.work-card figure img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-out); }
-.work-card:hover figure img { transform: scale(1.06); }
+.work-card figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* クリックで画面中央へ大きく拡大表示 (js/main.js が FLIP で制御)。
+   width/transform はJSがインラインで設定する。 */
+.work-card.is-zoomed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 120;
+  margin: 0;
+  /* reveal の scroll-driven animation は transform/opacity を握って
+     インラインの FLIP transform を上書きするので、拡大中は無効化する */
+  animation: none !important;
+  opacity: 1 !important;
+  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.78), 0 0 60px rgba(201, 162, 39, 0.28);
+  cursor: pointer;
+}
+.work-card.no-anim { transition: none; }   /* FLIPの初期フレームだけ瞬間移動させる */
+.zd-card-ph { visibility: hidden; }          /* グリッドの隙間を保持するプレースホルダ */
+.zd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: transparent;
+  pointer-events: none;
+}
+.zd-backdrop.is-on { pointer-events: auto; }
 .work-body { padding: 1.2rem 1.4rem 1.4rem; }
 .work-year { font-family: var(--font-display); color: var(--kin); letter-spacing: 0.3em; font-size: 0.8rem; }
 .work-body h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin: 0.3rem 0 0.4rem; }

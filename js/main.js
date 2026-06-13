@@ -260,6 +260,111 @@
   }
 
   /* ----------------------------------------------------------------------
+   * ズンドコ作品カード: クリックで画面中央へ大きく拡大 (FLIP)
+   * セクションが overflow:clip なため、その場の transform では枠外へ出られず
+   * 中央にも来られない。そこでクリック時だけカードを position:fixed に切り出し、
+   * FLIP(初期は元位置に見せて transform を中央へ遷移)でアニメーションさせる。
+   * 元の場所にはプレースホルダを置いてグリッドのリフローを防ぐ。
+   * reduced-motion / 狭い画面では発火させず、CSSの控えめホバーに委ねる。
+   * -------------------------------------------------------------------- */
+  const workCards = document.querySelectorAll(".zundoko-works .work-card");
+  if (workCards.length && !prefersReducedMotion) {
+    const zoomable = window.matchMedia("(min-width: 761px)");
+    const backdrop = document.createElement("div");
+    backdrop.className = "zd-backdrop";
+    document.body.appendChild(backdrop);
+
+    let openCard = null; // 現在拡大中のカード
+    let placeholder = null;
+
+    const reset = (card) => {
+      card.classList.remove("is-zoomed", "no-anim");
+      card.style.transition = "";
+      card.style.transform = "";
+      card.style.width = "";
+    };
+
+    // 中央寄せ(FINAL)を基準に、矩形 from へ重ねる INVERT transform を作る
+    const flipTo = (from, centered) =>
+      `translate(-50%, -50%) translate(` +
+      `${(from.left + from.width / 2 - (centered.left + centered.width / 2)).toFixed(1)}px, ` +
+      `${(from.top + from.height / 2 - (centered.top + centered.height / 2)).toFixed(1)}px) ` +
+      `scale(${(from.width / centered.width).toFixed(3)})`;
+
+    const close = () => {
+      if (!openCard) return;
+      const card = openCard;
+      openCard = null;
+      backdrop.classList.remove("is-on");
+
+      // FLIP: 現在(中央) → プレースホルダ位置 へ戻すアニメ
+      const centered = card.getBoundingClientRect();
+      card.style.transform = flipTo(placeholder.getBoundingClientRect(), centered);
+
+      const ph = placeholder;
+      placeholder = null;
+      const cleanup = (e) => {
+        if (e && e.propertyName !== "transform") return; // transformの完了だけ拾う
+        card.removeEventListener("transitionend", cleanup);
+        reset(card);
+        if (ph && ph.parentNode) ph.parentNode.removeChild(ph);
+      };
+      card.addEventListener("transitionend", cleanup);
+      setTimeout(cleanup, 700); // transitionend が来ない場合の保険
+    };
+
+    const open = (card) => {
+      if (openCard === card) return;
+      if (openCard) close();
+      openCard = card;
+
+      // FIRST: 元の位置・サイズ
+      const first = card.getBoundingClientRect();
+
+      // グリッドの隙間を埋めるプレースホルダ(高さだけ固定。幅は1frが担う)
+      placeholder = document.createElement("div");
+      placeholder.className = "zd-card-ph";
+      placeholder.style.height = `${first.height}px`;
+      card.parentNode.insertBefore(placeholder, card);
+
+      // FINAL: 中央・目標サイズ(画面幅の約6割、最大760px)へ。
+      // 中央寄せ transform を当てた状態で last を測るのが正しいFLIP。
+      const targetW = Math.min(window.innerWidth * 0.6, 760);
+      card.style.width = `${targetW}px`;
+      card.classList.add("is-zoomed", "no-anim");
+      card.style.transform = "translate(-50%, -50%)";
+      const centered = card.getBoundingClientRect();
+
+      // INVERT: 元位置に見えるよう transform を当てる(no-anim で瞬間適用)
+      card.style.transform = flipTo(first, centered);
+
+      // PLAY: INVERTを強制リフローで確定させてから中央へ遷移。
+      // rAF はタブ非アクティブ時に止まるため使わず、リフローでフレームを確定する。
+      void card.offsetWidth;
+      card.classList.remove("no-anim");
+      backdrop.classList.add("is-on");
+      card.style.transform = "translate(-50%, -50%)";
+    };
+
+    workCards.forEach((card) => {
+      const fig = card.querySelector("figure");
+      if (!fig) return;
+      fig.addEventListener("click", (e) => {
+        if (!zoomable.matches) return;
+        e.preventDefault(); // <a>のリンク遷移を抑止（テキスト部クリックは通す）
+        if (card.classList.contains("is-zoomed")) { close(); return; }
+        open(card);
+      });
+    });
+
+    backdrop.addEventListener("pointerdown", close);
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+    window.addEventListener("scroll", () => close(), { passive: true });
+  }
+
+  /* ----------------------------------------------------------------------
    * ズンドコキヨシ デモ
    * 「ズン」「ドコ」をランダム出力し、ズン×4 → ドコ で「キ・ヨ・シ！」
    * -------------------------------------------------------------------- */
