@@ -1,0 +1,96 @@
+# プロフィール
+- 写真: images/me.png
+- 名前: 山田海斗
+- 所属: 日立製作所 マネージド＆プラットフォームサービス事業部 
+- 役職: シニアソフトウェアアーキテクト
+- 業務: IT運用サービス JP1 Cloud Service/Operations Integration のアーキテクト兼SREリード
+- 趣味:
+    - コーヒー
+    - 釣り
+    - 囲碁・将棋
+    - スノーボード
+    - クラシックギター
+    - ハイラルの勇者
+    - ズンドコキヨシ
+- 特技
+    - 囲碁初段
+    - 少林寺拳法初段
+- 好きな食べ物
+    - ゴーヤチャンプルー
+    - 目玉焼き
+- 嫌いな食べ物
+    - にんじん
+    - セロリ
+    - パクチー
+
+# 技術コミュニティ活動
+
+- [GitHub](https://github.com/kaitoy): 1305 stars, 45 own repos, 74 followers
+- [自前技術ブログ](https://www.kaitoy.xyz/2017/02/14/change-subdomain/): 145 posts
+- [Qiita](https://qiita.com/kaitoy): 13 posts, 789 contributions, 16 followers
+
+# 来歴
+
+- 1983年12月
+    - 横浜で生まれる。
+    - ファミコン、東京ディズニーランド、パックンチョ、インターネット、ping、telnetと同い年
+        - ![1983](images/1983.png)
+- 1987年
+    - 愛知県豊橋市に移住
+    - 家業は老舗和菓子屋の[若松園](https://www.wakamatsuen.net/)
+        - ![若松園](images/若松園.jpg)
+    - 水泳部 → 卓球部 → 囲碁部
+- 2002年
+    - 大学入学で上京
+    - 東京都新宿の3畳一間、風呂無し空調無し換気扇なしトイレ共同のアパートで一人暮らし
+    - クラシックギター部
+        - ![guitar](images/guitar.png)
+    - マルチコアプロセッサアーキテクチャの研究
+        - 日立製作所 (中央研究所)、ルネサスと共同研究
+- 2008年
+    - 日立製作所に入社
+    - 横浜市泉区の寮に入居
+- 2011年
+    - 結婚
+    - 川崎市新丸子(武蔵小杉あたり)に引っ越し
+- 2012年
+    - アメリカ赴任でコロラド州フォートコリンズに引っ越し
+    - HPE社に常駐
+    - 子供が二人生まれる
+- 2017年
+    - 帰任して戸塚の社宅に移住
+- 2023年
+    - 戸塚の一軒家に移住
+
+# 職務経歴
+
+- 2008年～2012年
+    - JP1/Network Node Manager iの開発
+        - HPEからの導入品
+        - ルーター、スイッチなどのネットワーク機器の構成管理、障害検知、障害分析ツール
+    - 利用技術: C、Bash、Perl、Java、Maven、RHEL、Solaris (Spark)、HP-UX、Windows Server、ESXi、Cisco
+- 2012年～2017年
+    - 米国HPE社でのNetwork Node Manager iの開発
+    - 利用技術: Java、JBoss、JavaScript、Dojo Toolkit、Docker、Git、Selenium
+- 2017年
+    - ServiceNowのJP1連携テンプレートの開発
+    - 利用技術: ServiceNow、JavaScript、Babel、WebdriverIO
+- 2018年～2021年
+    - AI for IT Operations - Platformの開発
+        - AIによるIT運用を支援するツール
+    - 利用技術: Python、Flask、uWSGI、Pandas、scikit-learn、SQLAlchemy、pytest、TypeScript、React、Redux、Webpack、Jest、Material UI、Go、Gin、Java、Kubernetes、Helm、kubebuilder、Docker、Alpine Linux、Swagger、Ansible、Packer、Vagrant、Elasticsearch、Kibana、nginx、Kong、Keycloak、PostgreSQL、RabbitMQ、GitLab
+- 2022年～
+    - JP1 Cloud Service/Operations Integrationの開発
+        - ITSMと運用自動化の機能を備えた、運用のコード化 (Operations as Code)が特徴のクラウドサービス
+    - 利用技術: AWS、Amazon EKS、Amazon Bedrock、Go、JavaScript、React、Redux、Jest、Material UI、TypeScript、Next.js、Hugo、Python、FastAPI、pytest、LangChain、LangGraph、Google ADK、LiteLLM、FastMCP、operator-sdk、Ansible、Jenkins、Groovy、Istio、envoy、k3s、nginx、OPA、Keycloak、PostgreSQL、MongoDB、Redis、RabbitMQ、HashiCorp Vault、Grafana、GitLab、Hasura、StackStorm、AWX、OpenTelemetry、Fluent Bit、Fluentd、Kanister、Karpenter
+
+# ズンドコキヨシ
+
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">Javaの講義、試験が「自作関数を作り記述しなさい」って問題だったから<br>「ズン」「ドコ」のいずれかをランダムで出力し続けて「ズン」「ズン」「ズン」「ズン」「ドコ」の配列が出たら「キ・ヨ・シ！」って出力した後終了って関数作ったら満点で単位貰ってた</p>&mdash; てくも (@kumiromilk) <a href="https://twitter.com/kumiromilk/status/707437861881180160">2016年3月9日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+- 2016年: [ズンドコキヨシ with Pcap4J - ZUNDOKOプロトコルを実装してみた](https://www.kaitoy.xyz/2016/03/19/zundoko-kiyoshi-with-pcap4j/)
+    - ![zundoko_pcap4j.png](images/zundoko_pcap4j.png)
+- 2019年: [ズンドコキヨシ with Kubernetes Operator - KubebuilderでKubernetes Operatorを作ってみた](https://www.kaitoy.xyz/2019/03/08/k8s-zundoko-operator/)
+    - ![zundoko_operator.png](images/zundoko_operator.png)
